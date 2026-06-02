@@ -19,7 +19,6 @@ def extract_prompt(image_path: str) -> str:
         image_b64 = base64.b64encode(f.read()).decode("utf-8")
 
     payload = {
-        "model": "Qwen3.6-35B-A3B-uncensored-heretic-APEX-I-Compact.gguf",
         "messages": [
             {
                 "role": "user",
