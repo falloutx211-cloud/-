@@ -64,15 +64,13 @@ def check_api_connectivity() -> bool:
 
 def ensure_directories():
     """
-    创建必要的目录
+    检查必要的目录是否存在
     """
-    try:
-        os.makedirs(PHOTO_DIR, exist_ok=True)
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        logger.info(f"✓ 目录已就绪: {PHOTO_DIR}, {OUTPUT_DIR}")
-    except Exception as e:
-        logger.error(f"✗ 无法创建目录: {e}")
-        raise
+    if not os.path.isdir(PHOTO_DIR):
+        raise FileNotFoundError(f"照片目录不存在: {PHOTO_DIR}")
+    if not os.path.isdir(OUTPUT_DIR):
+        raise FileNotFoundError(f"提示词目录不存在: {OUTPUT_DIR}")
+    logger.info(f"✓ 目录已就绪: {PHOTO_DIR}, {OUTPUT_DIR}")
 
 
 # =========================
@@ -143,7 +141,7 @@ def main():
     logger.info("图片提示词提取工具")
     logger.info("=" * 50)
 
-    # 创建必要目录
+    # 检查必要目录
     try:
         ensure_directories()
     except Exception as e:
